@@ -52,21 +52,6 @@ foreach ($query as $row) {
                                     <input type="date" class="form-control" name="dateto" value=<?php echo $dateto; ?>>
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label class="form-label" for="type">Loại</label>
-                                    <select class="form-control" name="type">
-                                        <?php
-                                        foreach ($types as $key => $value) {
-                                            if ($key == $type)
-                                                echo '<option value="' . $key . '" selected>' . $value . '</option>';
-                                            else
-                                                echo '<option value="' . $key . '">' . $value . '</option>';
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Xác nhận</button>
