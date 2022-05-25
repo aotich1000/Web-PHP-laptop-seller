@@ -19,7 +19,7 @@ $query = mysqli_query($con, $sql);
 foreach ($query as $row) {
     $tensanpham[] = $row["ten_sanpham"];
     $labeldoanhthu[] = $row["id_sanpham"];
-    $datadoanhthu[] = $row["tong tien"];
+    $datadoanhthu[] = number_format($row["tong tien"]);
 }
 ?>
 <script>
