@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 13, 2022 lúc 07:42 AM
+-- Thời gian đã tạo: Th5 25, 2022 lúc 09:13 AM
 -- Phiên bản máy phục vụ: 10.4.17-MariaDB
 -- Phiên bản PHP: 8.0.1
 
@@ -46,6 +46,28 @@ INSERT INTO `tbl_admin` (`id_admin`, `user_name`, `password`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `tbl_banner`
+--
+
+CREATE TABLE `tbl_banner` (
+  `id_banner` int(11) NOT NULL,
+  `ten_banner` varchar(255) NOT NULL,
+  `images` varchar(255) NOT NULL,
+  `trang_thai` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_banner`
+--
+
+INSERT INTO `tbl_banner` (`id_banner`, `ten_banner`, `images`, `trang_thai`) VALUES
+(1, 'Banner 1', 'banner1.png', 'Hoạt động'),
+(2, 'Banner 2', 'Banner2.png', 'Hoạt động'),
+(3, 'Banner 3', 'Banner3.jpg', 'Hoạt động');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `tbl_chitiethoadon`
 --
 
@@ -61,7 +83,11 @@ CREATE TABLE `tbl_chitiethoadon` (
 
 INSERT INTO `tbl_chitiethoadon` (`id_hoadon`, `id_sanpham`, `soluongsp`) VALUES
 (39, 57, 1),
-(39, 58, 1);
+(39, 58, 1),
+(40, 46, 1),
+(40, 52, 1),
+(41, 29, 1),
+(42, 43, 1);
 
 -- --------------------------------------------------------
 
@@ -99,7 +125,10 @@ CREATE TABLE `tbl_hoadon` (
 --
 
 INSERT INTO `tbl_hoadon` (`id_hoadon`, `id_user`, `diachi`, `tong_tien`, `sdt`, `date`, `pptt`, `trangthai`, `time`) VALUES
-(39, 1, 'TP.HCM', '10000000', '0123456781', '2022-05-13', 'Thanh toán khi nhận hàng', 'Chưa xử lí', '22-05-13 11:27:56 AM');
+(39, 1, 'TP.HCM', '10000000', '0123456781', '2022-05-13', 'Thanh toán khi nhận hàng', 'Chưa xử lí', '22-05-13 11:27:56 AM'),
+(40, 12, 'hello', '10000000', '0123456789', '2022-05-25', 'Ví điện tử', 'Đã hủy', '22-05-25 11:17:20 AM'),
+(41, 12, 'TP.HCM', '24000000', '0123456789', '2022-05-25', 'Ví điện tử', 'Đã hủy', '22-05-25 11:17:42 AM'),
+(42, 12, 'TP.HCM', '5000000', '0123456789', '2022-05-25', 'Ví điện tử', 'Đã hủy', '22-05-25 11:24:54 AM');
 
 -- --------------------------------------------------------
 
@@ -205,7 +234,7 @@ INSERT INTO `tbl_sanpham` (`id_sanpham`, `ten_sanpham`, `loaisp`, `mota`, `gia`,
 (26, 'iPhone 12 mini 64GB', 1, 'Mạnh mẽ, siêu nhanh với chip A14, RAM 4GB, mạng 5G tốc độ cao\r\nRực rỡ, sắc nét, độ sáng cao - Màn hình OLED cao cấp, Super Retina XDR hỗ trợ HDR10, Dolby Vision\r\nChụp đêm ấn tượng - Night Mode cho 2 camera, thuật toán Deep Fusion, Smart HDR 3', '15000000', '1', 'iphone_12_mini_blue (1).png', 100),
 (27, 'iPhone 12 Pro 128GB', 1, 'Mạnh mẽ, siêu nhanh với chip A14, RAM 6GB, mạng 5G tốc độ cao\r\nRực rỡ, sắc nét, độ sáng cao - Màn hình OLED cao cấp, Super Retina XDR hỗ trợ HDR10, Dolby Vision\r\nChụp ảnh siêu đỉnh - Night Mode , thuật toán Deep Fusion, Smart HDR 3, camera LiDar', '24000000', '1', 'iphone_12_pro_black (1).png', 100),
 (28, 'iPhone 12 Pro Max 512GB', 1, 'Mạnh mẽ, siêu nhanh với chip A14, RAM 6GB, mạng 5G tốc độ cao\r\nRực rỡ, sắc nét, độ sáng cao - Màn hình OLED cao cấp, Super Retina XDR hỗ trợ HDR10, Dolby Vision\r\nChụp ảnh siêu đỉnh - Night Mode , thuật toán Deep Fusion, Smart HDR 3, camera LiDar', '50000000', '1', 'iphone_12_pro_max_blue.png', 100),
-(29, 'iPhone 12 mini 128GB ', 1, 'Mạnh mẽ, siêu nhanh với chip A14, RAM 4GB, mạng 5G tốc độ cao\r\nRực rỡ, sắc nét, độ sáng cao - Màn hình OLED cao cấp, Super Retina XDR hỗ trợ HDR10, Dolby Vision\r\nChụp đêm ấn tượng - Night Mode cho 2 camera, thuật toán Deep Fusion, Smart HDR 3', '24000000', '1', 'iphone_12_mini_purple (1).png', 100),
+(29, 'iPhone 12 mini 128GB ', 1, 'Mạnh mẽ, siêu nhanh với chip A14, RAM 4GB, mạng 5G tốc độ cao\r\nRực rỡ, sắc nét, độ sáng cao - Màn hình OLED cao cấp, Super Retina XDR hỗ trợ HDR10, Dolby Vision\r\nChụp đêm ấn tượng - Night Mode cho 2 camera, thuật toán Deep Fusion, Smart HDR 3', '24000000', '1', 'iphone_12_mini_purple (1).png', 99),
 (30, 'Xiaomi Redmi Note 11 Pro Plus 5G', 2, 'Đón đầu thử thách, bứt phá mọi tựa game - Chip MediaTek Dimensity 920 5G 8 nhân siêu mạnh mẽ\r\nKhông gian giải trí đỉnh cao - Màn hình AMOLED 6.67 inch sắc nét, tần số quét 120Hz mượt mà\r\nSạc nhanh thần tốc, tràn đầy năng lượng - Dung lượng pin lớn 4500mAh, sạc nhanh đến 120W', '10000000', '1', '11-pro-plus-blue (1).jpg', 100),
 (31, 'Xiaomi Redmi Note 11', 2, 'Nâng cao trải nghiệm thị giác - Màn hình AMOLED 6.43\"\" Full HD+, công nghệ DotDisplay\r\nHiệu năng ấn tượng - Snapdragon 680 8 nhân cùng RAM 4GB, bộ nhớ 64GB\r\nChinh phục mọi khoảnh khắc - Cụm 4 camera 50MP, nhiều chế độ chụp tiện ích ', '10000000', '1', '800x800-1-640x640-5_2 (1).png', 100),
 (32, 'Xiaomi Mi 11 Lite 5G', 2, 'Không gian hiển thị thoải mái, chuyển động mượt - Màn hình tràn viền 6,55 inch, tần số quét 90Hz, HDR10+\r\nHiệu năng mạnh mẽ, ổn định - Chip Snapdragon 780G trên 5nm, 128GB bộ nhớ và 8GB RAM\r\nCamera chụp ảnh ấn tượng - Cụm 3 camera sau 64MP, chụp đêm rõ nét ', '10000000', '1', '800x800-1-640x640-5_2 (1).png', 100),
@@ -219,21 +248,18 @@ INSERT INTO `tbl_sanpham` (`id_sanpham`, `ten_sanpham`, `loaisp`, `mota`, `gia`,
 (40, 'Xiaomi Redmi Note 10', 2, 'Trải nghiệm điện ảnh vượt trội - Màn hình AMOLED kích thước 6.43 inch sắc nét, cảm biến ánh sáng 360 độ, chứng nhận bảo vệ mắt\r\nHiệu suất vượt tầm giá - Snapdragon 678 8 nhân mạnh mẽ, bộ nhớ UFS 2.2\r\nSạc đầy pin chỉ mất hơn 60 phút - Bộ sạc nhanh công suất 33W ấn tượng', '10000000', '1', 'xiaomi-redmi-note-10_1.jpg', 100),
 (41, 'Xiaomi Redmi 9A', 2, 'Thiết kế thời thượng - thân hình unibody mỏng, gọn và có thiết kế 3D độc đáo\r\nMàn hình sắc nét - 6.53 inch HD+, IPS LCD cho hình ảnh sống động\r\nVi xử lí tối ưu hoá trải nghiệm gaming - Chip MediaTek Helio G25, RAM 2GB, 32GB', '10000000', '1', 'redmi_9a_0005_background (1).jpg', 100),
 (42, 'Xiaomi Redmi Note 11S', 2, 'Thiết kế tinh tế, cuốn hút - Mỏng nhẹ thời trang, nhỏ gọn trong tay\r\nTrọn vẹn từng khung hình - Màn hình 6.43\" FHD+ AMOLED DotDisplay, 90Hz\r\nChụp ảnh chuyên nghiệp - Cụm 4 camera sau 108MP, hỗ trợ đa dạng chế độ chụp ', '10000000', '1', 'frame37917-640x640_1_.png', 100),
-(43, 'Xiaomi Redmi 10C 4GB 128GB', 2, 'Hiệu năng ổn định trên từng tác vụ, đa nhiệm mượt mà - Vi xử lí Snapdragon 680, RAM 4 GB\r\nCamera độ phân giải cao, hỗ trợ nhiều chế độ chụp - Cảm biến chính 50 MP, độ phân giải cao\r\nMàn hình giải trí sắc nét ấn tượng - Kích thước 6.71\", tấm nền IPS LCD độ phân giải HD+', '5000000', '1', 'xiaomi-redmi-10c-1-002.jpg', 100),
+(43, 'Xiaomi Redmi 10C 4GB 128GB', 2, 'Hiệu năng ổn định trên từng tác vụ, đa nhiệm mượt mà - Vi xử lí Snapdragon 680, RAM 4 GB\r\nCamera độ phân giải cao, hỗ trợ nhiều chế độ chụp - Cảm biến chính 50 MP, độ phân giải cao\r\nMàn hình giải trí sắc nét ấn tượng - Kích thước 6.71\", tấm nền IPS LCD độ phân giải HD+', '5000000', '1', 'xiaomi-redmi-10c-1-002.jpg', 99),
 (44, 'Xiaomi Redmi Note 10S', 2, 'Trải nghiệm hình ảnh chân thực - Màn hình AMOLED 6.43\", Full HD+\r\nCamera sau ấn tượng - 4 camera 64MP, đa dạng chức năng\r\nHiệu năng dẫn đầu xu thế - Chip MediaTek Helio G95, RAM 8GB', '5000000', '1', 'xiaomi-redmi-note-10s-xanh-1 (1).jpg', 100),
 (45, 'Xiaomi 11 Lite 5G NE', 2, 'Thiết kế mỏng nhẹ, thời thượng - Trọng lượng chỉ 158 g và mỏng 6.8 mm, cầm nắm thoải mái\r\nNâng tầm trải nghiệm giải trí - Màn hình AMOLED 6.55\", Full HD+ sắc nét, tần số quét 90Hz mượt mà\r\nLưu giữ mọi khoảnh khắc - Cụm 3 camera sau lên đến 64MP, quay video 4K sắc nét, chân thực', '5000000', '1', 'xiaomi-11-lite-5g-014_1.jpg', 100),
-(46, 'Xiaomi Mi 10T Pro 5G', 2, 'Màn hình siêu mượt, chi tiết và rõ ràng - Màn hình DotDisplay FullHD+ 6 67 inch, tần số quét 144Hz, gam màu rộng DCI- P3, TrueColor\r\nVận hành trơn tru, kết nối nhanh chóng - Snapdragon 865 5G hàng đầu, RAM 8GB, bộ nhớ UFS 3.1 tốc độ cao\r\nCamera sáng tạo vô hạn - Bộ ba camera 108MP tích hợp AI thông minh, quay phim 8K, chụp ảnh độ phân giải 33MP', '5000000', '1', 'xiaomi-mi-10t-pro_2_.jpg', 100),
+(46, 'Xiaomi Mi 10T Pro 5G', 2, 'Màn hình siêu mượt, chi tiết và rõ ràng - Màn hình DotDisplay FullHD+ 6 67 inch, tần số quét 144Hz, gam màu rộng DCI- P3, TrueColor\r\nVận hành trơn tru, kết nối nhanh chóng - Snapdragon 865 5G hàng đầu, RAM 8GB, bộ nhớ UFS 3.1 tốc độ cao\r\nCamera sáng tạo vô hạn - Bộ ba camera 108MP tích hợp AI thông minh, quay phim 8K, chụp ảnh độ phân giải 33MP', '5000000', '1', 'xiaomi-mi-10t-pro_2_.jpg', 99),
 (47, 'OPPO Reno6 Z 5G', 3, 'Thiết kế ấn tượng, màu sắc cá tính - Thiết kế tràn viền, mỏng nhẹ chỉ 173g\r\nTăng tốc kết nối, dẫn đầu xu hướng - Dimensity 800U 5G 8 nhân mạnh mẽ, kết nối 5G siêu nhanh\r\nChuyên gia nhiếp ảnh chân dung - Bộ 3 camera lên tới 64 MP, sắc nét, ấn tượng\r\nMàn hình lớn, sắc nét với tốc độ làm mới cao - Màn hình AMOLED 6.43 inch Full HD, 60 Hz', '5000000', '1', 'oppo_reno6 (1).jpg', 100),
-(48, 'OPPO Reno6 5G', 3, 'Thiết kế ấn tượng, màu sắc cá tính - Thiết kế tràn viền, mỏng nhẹ chỉ 182g\r\nTăng tốc kết nối, dẫn đầu xu hướng - Dimensity 900 5G (6 nm) mạnh mẽ, kết nối 5G siêu nhanh\r\nChuyên gia nhiếp ảnh chân dung - Bộ 3 camera lên tới 64 MP, sắc nét, ấn tượng\r\nMàn hình lớn, sắc nét với tốc độ làm mới cao - Màn hình AMOLED 6.43 inch Full HD, 90Hz', '5000000', '1', 'reno6-1_1.jpg', 100),
 (49, 'OPPO A95', 3, 'Thiết kế mỏng nhẹ hiện đại - Mỏng chỉ 7.95mm, nhẹ chỉ 175g, màu sắc sành điệu\r\nHiển thị sắc nét mọi khung hình - Màn hình Super AMOLED FullHD+ 6.43\"\r\nVi xử lý mạnh mẽ - Chip Snapdragon 662, RAM 8GB ', '5000000', '1', 'reno6-1_1.jpg', 100),
 (50, 'OPPO A95', 3, 'Thiết kế mỏng nhẹ hiện đại - Mỏng chỉ 7.95mm, nhẹ chỉ 175g, màu sắc sành điệu\r\nHiển thị sắc nét mọi khung hình - Màn hình Super AMOLED FullHD+ 6.43\"\r\nVi xử lý mạnh mẽ - Chip Snapdragon 662, RAM 8GB', '5000000', '1', 'combo_a95_-_en_-_cmyk (1).jpg', 100),
-(51, 'OPPO Reno7 Z (5G)', 3, 'Trải nghiệm mượt mà các tác vụ - Bộ xử lý Snapdragon 695 mạnh mẽ RAM 8 GB\r\nNăng lượng bất tận cả ngày - Dung lượng pin lớn 4500 mAh và sạc nhanh 60W\r\nTrọn vẹn từng khoảnh khắc - Cụm 3 camera sau cảm biến lên đến 64MP, chụp chân dung chuyên nghiệp', '5000000', '1', 'combo_a95_-_en_-_cmyk (1).jpg', 100),
-(52, 'OPPO Reno7 4G (8GB - 128GB)', 3, 'Kích thước màn hình	6.43 inches\r\nCông nghệ màn hình	AMOLED\r\nCamera trước	32MP, f/2.4; FOV 85°\r\nChipset	Snapdragon™ 680\r\nDung lượng RAM	8 GB ', '5000000', '1', '_0001_combo_-_reno4_pro_-_white (1).jpg', 100),
+(52, 'OPPO Reno7 4G (8GB - 128GB)', 3, 'Kích thước màn hình	6.43 inches\r\nCông nghệ màn hình	AMOLED\r\nCamera trước	32MP, f/2.4; FOV 85°\r\nChipset	Snapdragon™ 680\r\nDung lượng RAM	8 GB ', '5000000', '1', '_0001_combo_-_reno4_pro_-_white (1).jpg', 99),
 (53, 'OPPO Reno7 (5G)', 3, 'Trải nghiệm mọi tác vụ mượt mà - Chip MediaTek Dimensity 900 5G mạnh mẽ, RAM khủng 8 GB\r\nGhi lại những câu chuyện sống động màu sắc - Camera chính 64MP, camera selfie độ phân giải cao\r\nNăng lượng bền bỉ cho cả ngày dài - Viên pin lớn 4500 mAh cùng sạc nhanh 65 W ', '5000000', '1', 'oppo-reno-5_3_ (1).jpg', 100),
 (54, 'Samsung Galaxy S22 Ultra (8GB - 128GB)', 4, 'Vi xử lý mạnh mẽ nhất Galaxy - Snapdragon 8 Gen 1 (4 nm)\r\nCamera mắt thần bóng đêm Nightography - Chụp đêm cực đỉnh\r\nS Pen đầu tiên trên Galaxy S - Độ trễ thấp, dễ thao tác', '10000000', '1', 'sm-s908_galaxys22ultra_front_green_211119 (1).jpg', 100),
-(55, 'Samsung Galaxy Note 20 Ultra 5G', 1, 'Sang trọng, cao cấp - Màu sắc độc đáo và cuốn hút\r\nChụp ảnh chuyên nghiệp - Bộ 3 camera hỗ trợ Zoom xa đến 30X\r\nGhi chú nhanh chóng, chính xác với bút S- Pen thế hệ mới', '10000000', '1', 'yellow_final_2.jpg', 100),
+(55, 'Samsung Galaxy Note 20 Ultra 5G', 4, 'Sang trọng, cao cấp - Màu sắc độc đáo và cuốn hút\r\nChụp ảnh chuyên nghiệp - Bộ 3 camera hỗ trợ Zoom xa đến 30X\r\nGhi chú nhanh chóng, chính xác với bút S- Pen thế hệ mới ', '10000000', '1', 'yellow_final_2.jpg', 100),
 (56, 'Samsung Galaxy A73', 4, 'Camera chất lượng, bắt trọn từng khoảng khắc - Cụm 4 camera với cảm biến chính lên đến 108 MP\r\nThưởng thức không gian giải trí cực đỉnh - Màn hình lớn 6.7 inch, độ phân giải Full HD+, 120Hz mượt mà\r\nCấu hình Galaxy A73 5G được nâng cấp mạnh với chip Snapdragon 778G, RAM lên đến 8 GB', '10000000', '1', 'samsung-galaxy-a73-1-600x600.jpg', 100),
-(57, 'Samsung Galaxy S22 Plus (8GB + 128GB)', 4, 'Camera mắt thần bóng đêm Nightography - Bắt trọn mọi khoảng khắc\r\nMãn nhãn từng chi tiết - Màn hình 6.6\"\", Dynamic AMOLED 2X, 120Hz\r\nHiệu năng mạnh mẽ, xử lí thông minh - Snapdragon 8 Gen 1 (4 nm)', '5000000', '1', 'samsung-galaxy-a73-1-600x600.jpg', 99),
 (58, 'Samsung Galaxy A32', 4, 'Màn hình siêu mượt, hình ảnh sắc nét - Màn hình Super AMOLED FullHD, tần số quét 90Hz\r\nThiết kế tối giản, thể hiện phong cách - Màu sắc trẻ trung, mặt lưng bóng bẩy, cụm camera thiết kế mới.\r\nGhi lại mọi khoảnh khắc - Cụm camera 64MP tuyệt đỉnh, camera selfie 20MP chất lượng.', '5000000', '1', 'samsung-galaxy-a32-20.jpg', 99);
 
 -- --------------------------------------------------------
@@ -259,7 +285,8 @@ INSERT INTO `tbl_user` (`id_user`, `hoten`, `sdt`, `email`, `user_name`, `passwo
 (1, 'Ai-chan', '0123456781', 'aotich@gmail.com', 'aotich', '$2y$10$khO8G2d3hS0EAj1SrBtHq.79XoFQTu2WtCSI.maDPVindAReYY9Uu'),
 (12, 'admin', '0123456789', 'aotich3@gmail.com', 'admin', '$2y$10$cx3e1uUo/bakx.9tSxyjh.CKHiREAdZ.Kj5zDAURJIoX9RZNLAiyy'),
 (13, 'admin', '0123456789', 'aotich1000@gmail.com', 'aotich1000', '$2y$10$5o.DSZuJVOMkZ0TvTsxcMu3J1vkn65jSyG40C0oQU0dLTM5JZMrWm'),
-(14, 'abc', '0123456789', 'asd@d.com', 'admin2', '$2y$10$o6Cy3cSitXVtJR6mFJ35zOuWm8NEvPgKIiS7FhhrMkUq/6uBrIsC2');
+(14, 'abc', '0123456789', 'asd@d.com', 'admin2', '$2y$10$o6Cy3cSitXVtJR6mFJ35zOuWm8NEvPgKIiS7FhhrMkUq/6uBrIsC2'),
+(15, 'Ai-chan', '0123456789', 'aotich2000@gmail.com', 'aotich1234', '$2y$10$rYz.W7R4xHH0dwv8fQTSS.gb3TD75tTW2S5JiskIqlE79SVPRPZta');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -270,6 +297,12 @@ INSERT INTO `tbl_user` (`id_user`, `hoten`, `sdt`, `email`, `user_name`, `passwo
 --
 ALTER TABLE `tbl_admin`
   ADD PRIMARY KEY (`id_admin`);
+
+--
+-- Chỉ mục cho bảng `tbl_banner`
+--
+ALTER TABLE `tbl_banner`
+  ADD PRIMARY KEY (`id_banner`);
 
 --
 -- Chỉ mục cho bảng `tbl_chitiethoadon`
@@ -340,10 +373,16 @@ ALTER TABLE `tbl_admin`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT cho bảng `tbl_banner`
+--
+ALTER TABLE `tbl_banner`
+  MODIFY `id_banner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT cho bảng `tbl_hoadon`
 --
 ALTER TABLE `tbl_hoadon`
-  MODIFY `id_hoadon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_hoadon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_nhacungcap`
@@ -373,13 +412,13 @@ ALTER TABLE `tbl_phieunhap`
 -- AUTO_INCREMENT cho bảng `tbl_sanpham`
 --
 ALTER TABLE `tbl_sanpham`
-  MODIFY `id_sanpham` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id_sanpham` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
