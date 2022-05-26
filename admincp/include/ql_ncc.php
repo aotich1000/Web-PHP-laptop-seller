@@ -18,25 +18,6 @@ if (isset($_GET["datefrom"]) && isset($_GET["dateto"])) {
 } else {
     $sql = "SELECT * FROM tbl_nhacungcap, tbl_phieunhap, tbl_chitietphieunhap WHERE tbl_nhacungcap.id_nhacungcap = tbl_phieunhap.id_nhacungcap AND tbl_phieunhap.id_phieunhap = tbl_chitietphieunhap.id_phieunhap ORDER BY tbl_phieunhap.ngaynhap DESC";
 }
-
-// if ($action == 'showphieunhaptheongay') {
-//     $dates = $_POST['date$datefrom'];
-//     $datee = $_POST['date$dateto'];
-//     $datefrom = date("y-m-d", strtotime($dates));
-//     $dateto = date("y-m-d", strtotime($datee));
-//     $sql_phieunhaptheongay = "SELECT * FROM tbl_hoadon WHERE date BETWEEN '$datefrom' AND '$dateto'";
-//     $query_phieunhaptheongay = mysqli_query($con, $sql_phieunhaptheongay);
-//     $row1 = mysqli_num_rows($query_phieunhaptheongay);
-//     $page1 = ceil($row1 / $limit_pg);
-//     if (isset($_GET['page1'])) {
-//         $pg1 = $_GET['page1'];
-//     } else {
-//         $pg1 = 1;
-//     }
-//     $start1 = ($pg1 - 1) * $limit_pg;
-//     $new_sql_phieunhaptheongay = "SELECT * FROM tbl_hoadon,tbl_user WHERE tbl_hoadon.id_user = tbl_user.id_user AND date BETWEEN '$datefrom' AND '$dateto' LIMIT $start1,$limit_pg";
-//     $new_query_phieunhaptheongay = mysqli_query($con, $new_sql_phieunhaptheongay);
-// }
 if ($action == 'show') {
     $query = mysqli_query($con, $sql);
     $row = mysqli_num_rows($query);
@@ -50,8 +31,14 @@ if ($action == 'show') {
     $sql = $sql . " LIMIT $start,$limit_pg";
     $query = mysqli_query($con, $sql);
 }
-
-
+if ($action == 'thempn') {
+    $sql_id="SELECT id_phieunhap FROM tbl_phieunhap ORDER BY id_phieunhap DESC LIMIT 1";
+    $query = mysqli_query($con, $sql_id);
+    var_dump($query);
+    echo 1;
+    $new_id = mysqli_num_rows($query);
+    echo $new_id;
+}
 if (isset($_GET['trangthai'])) {
     $trangthai = $_GET['trangthai'];
     if ($trangthai = 'thanhcong') {
@@ -65,26 +52,8 @@ if (isset($_GET['trangthai'])) {
 }
 ?>
 
-<!-- <script>
-    function thaydoi(trangthai) {
-        document.getElementById("tdtrangthai").style.display = "block";
-        document.getElementById("nthaydoi").style.display = "none";
-        if (trangthai == '1') {
-            document.getElementById("cxl").selected = true;
-        }
-        if (trangthai == '2') {
-            document.getElementById("tndh").selected = true;
-        }
-        if (trangthai == '3') {
-            document.getElementById("dgh").selected = true;
-        }
-        if (trangthai == '4') {
-            document.getElementById("dht").selected = true;
-        }
-    }
-</script> -->
-
 <div class="container-fluid">
+
     <h1 class="h3 mb-2 text-gray-800">Quản lý nhập hàng</h1>
     <?php
     if ($action == 'xuli') {
@@ -229,25 +198,12 @@ if (isset($_GET['trangthai'])) {
             <span class="text">Thêm phiếu nhập mới</span>
         </a>
     <?php } ?>
-    <?php if ($action == 'thempn') { ?>
+    <?php if ($action == 'thempn') {?>
         <div class="row" style="margin-top: 10px;">
-            <form class="form" action="xuli-nhaphang.php" method="POST" id="tdtrangthai">
+            <form class="form" action="xuli-nhaphang.php" method="POST" id="thempn">
                 <input type="hidden" value="<?php echo $phieunhap['id_phieunhap'] ?>" name="idphieunhap" id="idphieunhap">
                 <div class="form-group row">
-                    <div class="col">
-
-                        <select class="form-control" name="nhanhang" id="nhanhang">
-                            <option value="Chưa nhận hàng" id="cnh" <?php if ($tt[0] == "Chưa nhận hàng") echo "selected" ?>>Chưa nhận hàng</option>
-                            <option value="Đã nhận hàng" id="dnh" <?php if ($tt[0] == "Đã nhận hàng") echo "selected" ?>>Đã nhận hàng</option>
-                        </select>
-                    </div>
-                    <div class="col">
-
-                        <select class="form-control" name="thanhtoan" id="thanhtoan">
-                            <option value="Chưa thanh toán" id="ctt" <?php if ($tt[1] == "Chưa thanh toán") echo "selected" ?>>Chưa thanh toán</option>
-                            <option value="Đã thanh toán" id="dtt" <?php if ($tt[1] == "Đã thanh toán") echo "selected" ?>>Đã thanh toán</option>
-                        </select>
-                    </div>
+                    
                 </div>
                 <button class="form-group btn btn-success" type="submit">Xác nhận thay đổi</button>
             </form>
