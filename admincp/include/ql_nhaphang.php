@@ -1,6 +1,5 @@
 <?php
-if(!isset($_SESSION['num']))
-{
+if (!isset($_SESSION['num'])) {
     $_SESSION['num'] = 0;
 }
 if (isset($_GET['action'])) {
@@ -34,20 +33,38 @@ if ($action == 'show') {
     $start = ($pg - 1) * $limit_pg;
     $sql = $sql . " LIMIT $start,$limit_pg";
     $query = mysqli_query($con, $sql);
-    if($query){
-
+}
+if ($action == 'xemchitiet') {
+    if (isset($_GET['idnhaphang'])) {
+        $idnhaphang = $_GET['idnhaphang'];
+        $sql="SELECT * FROM tbl_chitietphieunhap WHERE id_phieunhap = 1";
+        $query = mysqli_query($con, $sql);
+        $row = mysqli_num_rows($query);
+        $page = ceil($row / $limit_pg);
+        if (isset($_GET['page'])) {
+            $pg = $_GET['page'];
+        } else {
+            $pg = 1;
+        }
+        $start = ($pg - 1) * $limit_pg;
+        $sql = $sql . " LIMIT $start,$limit_pg";
+        $query = mysqli_query($con, $sql);
+    } else {
+        header("location:index.php?id=quanlynhaphang");
     }
 }
 if ($action == 'xoa') {
-    $id=$_GET['idnhaphang'];
-    $sql="DELETE FROM `tbl_phieunhap` WHERE id_phieunhap = ".$id;
+    $id = $_GET['idnhaphang'];
+    $sql = "DELETE FROM `tbl_chitietphieunhap` WHERE id_phieunhap = " . $id;
+    $query = mysqli_query($con, $sql);
+    $sql = "DELETE FROM `tbl_phieunhap` WHERE id_phieunhap = " . $id;
     $query = mysqli_query($con, $sql);
     $_SESSION['num']--;
-    ?>
-        <script>
-            alert("Thao tác thành công");
-            location.href = "index.php?id=quanlynhaphang";
-        </script>
+?>
+    <script>
+        alert("Thao tác thành công");
+        location.href = "index.php?id=quanlynhaphang";
+    </script>
     <?php
 }
 if ($action == 'thempn') {
@@ -73,7 +90,7 @@ if ($action == 'thempn') {
 if (isset($_GET['trangthai'])) {
     $trangthai = $_GET['trangthai'];
     if ($trangthai == 'thanhcong') {
-?>
+    ?>
         <script>
             alert("Thao tác thành công");
             location.href = "index.php?id=quanlynhaphang";
@@ -136,8 +153,8 @@ if (isset($_GET['xoa'])) {
                             <tr>
                                 <th>ID hóa đơn</th>
                                 <th>Ngày nhập</th>
+                                <th>Số lượng</th>
                                 <th>Tổng tiền</th>
-                            
                                 <th>Trạng thái</th>
                                 <th>Thao tác</th>
                             </tr>
@@ -147,12 +164,12 @@ if (isset($_GET['xoa'])) {
                             ?>
                                 <tr>
                                     <td><?php echo $data['id_phieunhap'] ?></td>
-                                    <td><?php echo $data['soluong'] ?></td>
                                     <td><?php echo $data['ngaynhap'] ?></td>
+                                    <td><?php echo $data['soluong'] ?></td>
                                     <td><?php echo number_format($data['tongtien']) ?>đ</td>
                                     <td><?php echo $data['trangthai'] ?></td>
                                     <td>
-                                        <?php 
+                                        <?php
                                         echo '<a href="index.php?id=quanlynhaphang&action=xemchitiet&&idnhaphang=' . $data["id_phieunhap"] . '" class="btn btn-success" style="margin-right:5px"> Xem chi tiết</a>';
                                         for ($i = 0; $i < count($quyenquanlyhoadon); $i++) {
                                             if ($quyenquanlyhoadon[$i] == 'xuli') {
@@ -204,6 +221,67 @@ if (isset($_GET['xoa'])) {
             <span class="text">Thêm phiếu nhập mới</span>
         </a>
     <?php } ?>
+    <?php if ($action == 'xemchitiet') { ?>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                Xem hóa đơn số <?php echo $idnhaphang;?>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID sản phẩm</th>
+                                <th>ID Nhà cung cấp</th>
+                                <th>Số lượng</th>
+                                <th>Đơn giá</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($data = mysqli_fetch_assoc($query)) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $data['id_sanpham'] ?></td>
+                                    <td><?php echo $data['id_ncc'] ?></td>
+                                    <td><?php echo $data['soluong'] ?></td>
+                                    <td><?php echo number_format($data['dongia']) ?>đ</td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                            <ul class="pagination">
+                                <?php for ($i = 1; $i <= $page; $i++) {
+                                    if ($i == $pg) {
+                                        $active = "active";
+                                ?>
+                                        <li class="paginate_button page-item <?php echo $active ?> "><a href="index.php?id=quanlynhaphang&page=<?php echo $i ?>" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link"><?php echo $i ?></a></li>
+                                    <?php } else {
+                                    ?>
+                                        <li class="paginate_button page-item"><a href="index.php?id=quanlynhaphang&page=<?php echo $i ?>" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link"><?php echo $i ?></a></li>
+                                <?php }
+                                }
+                                ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="index.php?id=quanlynhaphang" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-flag"></i>
+            </span>
+            <span class="text">Trở về</span>
+        </a>
+    <?php } ?>
+
     <?php
     if ($action == 'xuli') {
         $id_pn = $_GET['idnhaphang'];
@@ -218,7 +296,7 @@ if (isset($_GET['xoa'])) {
             <div class="row">
                 <ul class="list-group col-7">
                     <li class="list-group-item">ID phiếu nhập: <?php echo $phieunhap['id_phieunhap'] ?></li>
-                    <li class="list-group-item">ID nhà cung cấp: <?php echo $phieunhap['id_nhacungcap'] ?></li>
+                    <li class="list-group-item">Ngày nhập: <?php echo $phieunhap['ngaynhap'] ?></li>
                     <li class="list-group-item">Trạng thái phiếu nhập: <?php echo $phieunhap['trangthai'] ?></li>
                     <li class="list-group-item">Tổng hóa đơn: <?php echo number_format($phieunhap['tongtien']) ?>đ</li>
                 </ul>

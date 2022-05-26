@@ -37,6 +37,7 @@ if (isset($_GET['thempn'])) {
     if ($b) {
         $_SESSION['phieunhap'][$_SESSION['num']]['idsanpham'] = $idsanpham;
         $_SESSION['phieunhap'][$_SESSION['num']]['sanpham'] = $sanpham;
+        $_SESSION['phieunhap'][$_SESSION['num']]['idncc'] = $idncc;
         $_SESSION['phieunhap'][$_SESSION['num']]['tenncc'] = $tenncc;
         $_SESSION['phieunhap'][$_SESSION['num']]['soluong'] = $soluong;
         $_SESSION['num']++;
@@ -45,24 +46,31 @@ if (isset($_GET['thempn'])) {
 }
 if (isset($_GET['hoantatphieunhap'])) {
     $idphieunhap = $_GET['idphieunhap'];
-    $date =date('Y-m-d');
-    $tongtien=0;
-    $trangthai="Chưa nhận hàng. Chưa thanh toán";
+    $date = date('Y-m-d');
+    $tongtien = 0;
+    $soluong = 0;
+    $trangthai = "Chưa nhận hàng. Chưa thanh toán";
     foreach ($_SESSION['phieunhap'] as $id => $value) {
         $sql = "SELECT gia FROM tbl_sanpham WHERE id_sanpham = " . $_SESSION['phieunhap'][$id]['idsanpham'];
         $query = mysqli_query($con, $sql);
         $gia = mysqli_fetch_array($query)['gia'];
+        // Thay đổi số lượng sản phẩm
         $tongtien = $tongtien + $_SESSION['phieunhap'][$id]['soluong'] * $gia;
-        
+        $soluong = $soluong + $_SESSION['phieunhap'][$id]['soluong'];
     }
-    $sql = "INSERT INTO tbl_phieunhap VALUES (null,'".$date."',".$tongtien.",'".$trangthai."')";
+    // Thêm phiếu nhập
+    $sql = "INSERT INTO tbl_phieunhap VALUES (null,'" . $date . "'," . $soluong . "," . $tongtien . ",'" . $trangthai . "')";
     $query = mysqli_query($con, $sql);
-    if ($query) {
-        foreach ($_SESSION['phieunhap'] as $id => $value) {
-            $sql = "SELECT gia FROM tbl_sanpham WHERE id_sanpham = " . $_SESSION['phieunhap'][$id]['idsanpham'];
-            $query = mysqli_query($con, $sql);
-            
-        }
-        header("location:index.php?id=quanlynhaphang&&trangthai=thanhcong");
+    foreach ($_SESSION['phieunhap'] as $id => $value) {
+        $sql = "SELECT gia FROM tbl_sanpham WHERE id_sanpham = " . $_SESSION['phieunhap'][$id]['idsanpham'];
+        $query = mysqli_query($con, $sql);
+        $gia = mysqli_fetch_array($query)['gia'];
+        $sql = 'UPDATE tbl_sanpham SET soluong= soluong + ' . $_SESSION['phieunhap'][$id]['soluong'] . ' WHERE id_sanpham = ' . $_SESSION['phieunhap'][$id]['idsanpham'];
+        $query = mysqli_query($con, $sql);
+        $sql = 'INSERT INTO tbl_chitietphieunhap VALUES (' . $idphieunhap . ',' . $_SESSION['phieunhap'][$id]['idsanpham'] . ',' . $_SESSION['phieunhap'][$id]['idncc'] . ',' . $_SESSION['phieunhap'][$id]['soluong'] . ',' . $gia . ')';
+        $query = mysqli_query($con, $sql);
     }
+    unset($_SESSION['phieunhap']);
+
+    header("location:index.php?id=quanlynhaphang&&trangthai=thanhcong");
 }
