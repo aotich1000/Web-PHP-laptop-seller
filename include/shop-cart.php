@@ -21,6 +21,7 @@ if (!empty($_SESSION['user']) && isset($_SESSION['user'])) {
             </script>
         <?php } ?>
         <div>
+            <H1>Giỏ hàng</H1>
             <table class="table table-striped">
                 <tr>
                     <th>STT</th>

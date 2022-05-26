@@ -2,10 +2,10 @@
 -- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 25, 2022 lúc 09:13 AM
--- Phiên bản máy phục vụ: 10.4.17-MariaDB
--- Phiên bản PHP: 8.0.1
+-- Host: 127.0.0.1
+-- Generation Time: May 26, 2022 at 04:22 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `mysqli`
+-- Database: `mysqli`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_admin`
+-- Table structure for table `tbl_admin`
 --
 
 CREATE TABLE `tbl_admin` (
@@ -35,7 +35,7 @@ CREATE TABLE `tbl_admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `tbl_admin`
+-- Dumping data for table `tbl_admin`
 --
 
 INSERT INTO `tbl_admin` (`id_admin`, `user_name`, `password`, `name`) VALUES
@@ -46,7 +46,7 @@ INSERT INTO `tbl_admin` (`id_admin`, `user_name`, `password`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_banner`
+-- Table structure for table `tbl_banner`
 --
 
 CREATE TABLE `tbl_banner` (
@@ -57,7 +57,7 @@ CREATE TABLE `tbl_banner` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `tbl_banner`
+-- Dumping data for table `tbl_banner`
 --
 
 INSERT INTO `tbl_banner` (`id_banner`, `ten_banner`, `images`, `trang_thai`) VALUES
@@ -68,7 +68,7 @@ INSERT INTO `tbl_banner` (`id_banner`, `ten_banner`, `images`, `trang_thai`) VAL
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_chitiethoadon`
+-- Table structure for table `tbl_chitiethoadon`
 --
 
 CREATE TABLE `tbl_chitiethoadon` (
@@ -78,7 +78,7 @@ CREATE TABLE `tbl_chitiethoadon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `tbl_chitiethoadon`
+-- Dumping data for table `tbl_chitiethoadon`
 --
 
 INSERT INTO `tbl_chitiethoadon` (`id_hoadon`, `id_sanpham`, `soluongsp`) VALUES
@@ -92,20 +92,30 @@ INSERT INTO `tbl_chitiethoadon` (`id_hoadon`, `id_sanpham`, `soluongsp`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_chitietphieunhap`
+-- Table structure for table `tbl_chitietphieunhap`
 --
 
 CREATE TABLE `tbl_chitietphieunhap` (
   `id_phieunhap` int(11) NOT NULL,
   `id_sanpham` int(11) NOT NULL,
+  `id_ncc` int(11) NOT NULL,
   `soluong` int(11) NOT NULL,
-  `dongia` int(11) NOT NULL
+  `dongia` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_chitietphieunhap`
+--
+
+INSERT INTO `tbl_chitietphieunhap` (`id_phieunhap`, `id_sanpham`, `id_ncc`, `soluong`, `dongia`) VALUES
+(1, 16, 1, 100, 29690000),
+(10, 19, 1, 12, 16590000),
+(10, 44, 2, 3, 5000000);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_hoadon`
+-- Table structure for table `tbl_hoadon`
 --
 
 CREATE TABLE `tbl_hoadon` (
@@ -121,7 +131,7 @@ CREATE TABLE `tbl_hoadon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `tbl_hoadon`
+-- Dumping data for table `tbl_hoadon`
 --
 
 INSERT INTO `tbl_hoadon` (`id_hoadon`, `id_user`, `diachi`, `tong_tien`, `sdt`, `date`, `pptt`, `trangthai`, `time`) VALUES
@@ -133,7 +143,7 @@ INSERT INTO `tbl_hoadon` (`id_hoadon`, `id_user`, `diachi`, `tong_tien`, `sdt`, 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_nhacungcap`
+-- Table structure for table `tbl_nhacungcap`
 --
 
 CREATE TABLE `tbl_nhacungcap` (
@@ -141,10 +151,18 @@ CREATE TABLE `tbl_nhacungcap` (
   `tenncc` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tbl_nhacungcap`
+--
+
+INSERT INTO `tbl_nhacungcap` (`id_nhacungcap`, `tenncc`) VALUES
+(1, 'FPT Group'),
+(2, 'Điện Máy Xanh');
+
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_permission`
+-- Table structure for table `tbl_permission`
 --
 
 CREATE TABLE `tbl_permission` (
@@ -157,7 +175,7 @@ CREATE TABLE `tbl_permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `tbl_permission`
+-- Dumping data for table `tbl_permission`
 --
 
 INSERT INTO `tbl_permission` (`id_permis`, `name`, `qladmin`, `qluser`, `qlhd`, `qlsp`) VALUES
@@ -168,7 +186,7 @@ INSERT INTO `tbl_permission` (`id_permis`, `name`, `qladmin`, `qluser`, `qlhd`, 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_phanloaisp`
+-- Table structure for table `tbl_phanloaisp`
 --
 
 CREATE TABLE `tbl_phanloaisp` (
@@ -177,7 +195,7 @@ CREATE TABLE `tbl_phanloaisp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `tbl_phanloaisp`
+-- Dumping data for table `tbl_phanloaisp`
 --
 
 INSERT INTO `tbl_phanloaisp` (`id_loaisp`, `ten_loaisp`) VALUES
@@ -189,20 +207,30 @@ INSERT INTO `tbl_phanloaisp` (`id_loaisp`, `ten_loaisp`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_phieunhap`
+-- Table structure for table `tbl_phieunhap`
 --
 
 CREATE TABLE `tbl_phieunhap` (
   `id_phieunhap` int(11) NOT NULL,
-  `id_nhacungcap` int(11) NOT NULL,
   `ngaynhap` varchar(255) NOT NULL,
-  `tongtien` varchar(100) NOT NULL
+  `soluong` int(11) NOT NULL,
+  `tongtien` varchar(100) NOT NULL,
+  `trangthai` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_phieunhap`
+--
+
+INSERT INTO `tbl_phieunhap` (`id_phieunhap`, `ngaynhap`, `soluong`, `tongtien`, `trangthai`) VALUES
+(1, '2021-03-01', 100, '2969000000', 'Đã nhận hàng. Đã thanh toán'),
+(9, '2022-05-26', 1, '29690000', 'Đã nhận hàng. Đã thanh toán'),
+(10, '2022-05-26', 15, '214080000', 'Đã nhận hàng. Đã thanh toán');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_sanpham`
+-- Table structure for table `tbl_sanpham`
 --
 
 CREATE TABLE `tbl_sanpham` (
@@ -217,7 +245,7 @@ CREATE TABLE `tbl_sanpham` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `tbl_sanpham`
+-- Dumping data for table `tbl_sanpham`
 --
 
 INSERT INTO `tbl_sanpham` (`id_sanpham`, `ten_sanpham`, `loaisp`, `mota`, `gia`, `trangthai`, `images`, `soluong`) VALUES
@@ -265,7 +293,7 @@ INSERT INTO `tbl_sanpham` (`id_sanpham`, `ten_sanpham`, `loaisp`, `mota`, `gia`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_user`
+-- Table structure for table `tbl_user`
 --
 
 CREATE TABLE `tbl_user` (
@@ -278,7 +306,7 @@ CREATE TABLE `tbl_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `tbl_user`
+-- Dumping data for table `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`id_user`, `hoten`, `sdt`, `email`, `user_name`, `password`) VALUES
@@ -289,168 +317,164 @@ INSERT INTO `tbl_user` (`id_user`, `hoten`, `sdt`, `email`, `user_name`, `passwo
 (15, 'Ai-chan', '0123456789', 'aotich2000@gmail.com', 'aotich1234', '$2y$10$rYz.W7R4xHH0dwv8fQTSS.gb3TD75tTW2S5JiskIqlE79SVPRPZta');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `tbl_admin`
+-- Indexes for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
   ADD PRIMARY KEY (`id_admin`);
 
 --
--- Chỉ mục cho bảng `tbl_banner`
+-- Indexes for table `tbl_banner`
 --
 ALTER TABLE `tbl_banner`
   ADD PRIMARY KEY (`id_banner`);
 
 --
--- Chỉ mục cho bảng `tbl_chitiethoadon`
+-- Indexes for table `tbl_chitiethoadon`
 --
 ALTER TABLE `tbl_chitiethoadon`
   ADD KEY `abc` (`id_hoadon`);
 
 --
--- Chỉ mục cho bảng `tbl_chitietphieunhap`
+-- Indexes for table `tbl_chitietphieunhap`
 --
 ALTER TABLE `tbl_chitietphieunhap`
+  ADD PRIMARY KEY (`id_phieunhap`,`id_sanpham`),
   ADD KEY `nhaphang` (`id_phieunhap`),
-  ADD KEY `sanphamnhap` (`id_sanpham`);
+  ADD KEY `sanphamnhap` (`id_sanpham`),
+  ADD KEY `id_ncc` (`id_ncc`);
 
 --
--- Chỉ mục cho bảng `tbl_hoadon`
+-- Indexes for table `tbl_hoadon`
 --
 ALTER TABLE `tbl_hoadon`
   ADD PRIMARY KEY (`id_hoadon`),
   ADD KEY `hoadon_user` (`id_user`);
 
 --
--- Chỉ mục cho bảng `tbl_nhacungcap`
+-- Indexes for table `tbl_nhacungcap`
 --
 ALTER TABLE `tbl_nhacungcap`
   ADD PRIMARY KEY (`id_nhacungcap`);
 
 --
--- Chỉ mục cho bảng `tbl_permission`
+-- Indexes for table `tbl_permission`
 --
 ALTER TABLE `tbl_permission`
   ADD PRIMARY KEY (`id_permis`);
 
 --
--- Chỉ mục cho bảng `tbl_phanloaisp`
+-- Indexes for table `tbl_phanloaisp`
 --
 ALTER TABLE `tbl_phanloaisp`
   ADD PRIMARY KEY (`id_loaisp`);
 
 --
--- Chỉ mục cho bảng `tbl_phieunhap`
+-- Indexes for table `tbl_phieunhap`
 --
 ALTER TABLE `tbl_phieunhap`
-  ADD PRIMARY KEY (`id_phieunhap`),
-  ADD KEY `cungcap` (`id_nhacungcap`);
+  ADD PRIMARY KEY (`id_phieunhap`);
 
 --
--- Chỉ mục cho bảng `tbl_sanpham`
+-- Indexes for table `tbl_sanpham`
 --
 ALTER TABLE `tbl_sanpham`
   ADD PRIMARY KEY (`id_sanpham`),
   ADD KEY `sdq` (`loaisp`);
 
 --
--- Chỉ mục cho bảng `tbl_user`
+-- Indexes for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `tbl_admin`
+-- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT cho bảng `tbl_banner`
+-- AUTO_INCREMENT for table `tbl_banner`
 --
 ALTER TABLE `tbl_banner`
   MODIFY `id_banner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `tbl_hoadon`
+-- AUTO_INCREMENT for table `tbl_hoadon`
 --
 ALTER TABLE `tbl_hoadon`
   MODIFY `id_hoadon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
--- AUTO_INCREMENT cho bảng `tbl_nhacungcap`
+-- AUTO_INCREMENT for table `tbl_nhacungcap`
 --
 ALTER TABLE `tbl_nhacungcap`
-  MODIFY `id_nhacungcap` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nhacungcap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT cho bảng `tbl_permission`
+-- AUTO_INCREMENT for table `tbl_permission`
 --
 ALTER TABLE `tbl_permission`
   MODIFY `id_permis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT cho bảng `tbl_phanloaisp`
+-- AUTO_INCREMENT for table `tbl_phanloaisp`
 --
 ALTER TABLE `tbl_phanloaisp`
   MODIFY `id_loaisp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `tbl_phieunhap`
+-- AUTO_INCREMENT for table `tbl_phieunhap`
 --
 ALTER TABLE `tbl_phieunhap`
-  MODIFY `id_phieunhap` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_phieunhap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT cho bảng `tbl_sanpham`
+-- AUTO_INCREMENT for table `tbl_sanpham`
 --
 ALTER TABLE `tbl_sanpham`
   MODIFY `id_sanpham` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
--- AUTO_INCREMENT cho bảng `tbl_user`
+-- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `tbl_chitiethoadon`
+-- Constraints for table `tbl_chitiethoadon`
 --
 ALTER TABLE `tbl_chitiethoadon`
   ADD CONSTRAINT `abc` FOREIGN KEY (`id_hoadon`) REFERENCES `tbl_hoadon` (`id_hoadon`);
 
 --
--- Các ràng buộc cho bảng `tbl_chitietphieunhap`
+-- Constraints for table `tbl_chitietphieunhap`
 --
 ALTER TABLE `tbl_chitietphieunhap`
+  ADD CONSTRAINT `id_ncc` FOREIGN KEY (`id_ncc`) REFERENCES `tbl_nhacungcap` (`id_nhacungcap`),
   ADD CONSTRAINT `nhaphang` FOREIGN KEY (`id_phieunhap`) REFERENCES `tbl_phieunhap` (`id_phieunhap`),
   ADD CONSTRAINT `sanphamnhap` FOREIGN KEY (`id_sanpham`) REFERENCES `tbl_sanpham` (`id_sanpham`);
 
 --
--- Các ràng buộc cho bảng `tbl_hoadon`
+-- Constraints for table `tbl_hoadon`
 --
 ALTER TABLE `tbl_hoadon`
   ADD CONSTRAINT `hoadon_user` FOREIGN KEY (`id_user`) REFERENCES `tbl_user` (`id_user`);
 
 --
--- Các ràng buộc cho bảng `tbl_phieunhap`
---
-ALTER TABLE `tbl_phieunhap`
-  ADD CONSTRAINT `cungcap` FOREIGN KEY (`id_nhacungcap`) REFERENCES `tbl_nhacungcap` (`id_nhacungcap`);
-
---
--- Các ràng buộc cho bảng `tbl_sanpham`
+-- Constraints for table `tbl_sanpham`
 --
 ALTER TABLE `tbl_sanpham`
   ADD CONSTRAINT `sdq` FOREIGN KEY (`loaisp`) REFERENCES `tbl_phanloaisp` (`id_loaisp`);
