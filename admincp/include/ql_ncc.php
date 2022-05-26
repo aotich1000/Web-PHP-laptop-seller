@@ -31,14 +31,7 @@ if ($action == 'show') {
     $sql = $sql . " LIMIT $start,$limit_pg";
     $query = mysqli_query($con, $sql);
 }
-if ($action == 'thempn') {
-    $sql_id="SELECT id_phieunhap FROM tbl_phieunhap ORDER BY id_phieunhap DESC LIMIT 1";
-    $query = mysqli_query($con, $sql_id);
-    var_dump($query);
-    echo 1;
-    $new_id = mysqli_num_rows($query);
-    echo $new_id;
-}
+
 if (isset($_GET['trangthai'])) {
     $trangthai = $_GET['trangthai'];
     if ($trangthai = 'thanhcong') {

@@ -18,25 +18,6 @@ if (isset($_GET["datefrom"]) && isset($_GET["dateto"])) {
 } else {
     $sql = "SELECT * FROM tbl_nhacungcap, tbl_phieunhap, tbl_chitietphieunhap WHERE tbl_nhacungcap.id_nhacungcap = tbl_phieunhap.id_nhacungcap AND tbl_phieunhap.id_phieunhap = tbl_chitietphieunhap.id_phieunhap ORDER BY tbl_phieunhap.ngaynhap DESC";
 }
-
-// if ($action == 'showphieunhaptheongay') {
-//     $dates = $_POST['date$datefrom'];
-//     $datee = $_POST['date$dateto'];
-//     $datefrom = date("y-m-d", strtotime($dates));
-//     $dateto = date("y-m-d", strtotime($datee));
-//     $sql_phieunhaptheongay = "SELECT * FROM tbl_hoadon WHERE date BETWEEN '$datefrom' AND '$dateto'";
-//     $query_phieunhaptheongay = mysqli_query($con, $sql_phieunhaptheongay);
-//     $row1 = mysqli_num_rows($query_phieunhaptheongay);
-//     $page1 = ceil($row1 / $limit_pg);
-//     if (isset($_GET['page1'])) {
-//         $pg1 = $_GET['page1'];
-//     } else {
-//         $pg1 = 1;
-//     }
-//     $start1 = ($pg1 - 1) * $limit_pg;
-//     $new_sql_phieunhaptheongay = "SELECT * FROM tbl_hoadon,tbl_user WHERE tbl_hoadon.id_user = tbl_user.id_user AND date BETWEEN '$datefrom' AND '$dateto' LIMIT $start1,$limit_pg";
-//     $new_query_phieunhaptheongay = mysqli_query($con, $new_sql_phieunhaptheongay);
-// }
 if ($action == 'show') {
     $query = mysqli_query($con, $sql);
     $row = mysqli_num_rows($query);
@@ -50,7 +31,25 @@ if ($action == 'show') {
     $sql = $sql . " LIMIT $start,$limit_pg";
     $query = mysqli_query($con, $sql);
 }
-
+if ($action == 'thempn') {
+    $sql_id = "SELECT id_phieunhap FROM tbl_phieunhap ORDER BY id_phieunhap DESC LIMIT 1";
+    $query = mysqli_query($con, $sql_id);
+    $new_id = mysqli_fetch_assoc($query)["id_phieunhap"] + 1;
+    $sql_ncc = "SELECT * FROM tbl_nhacungcap";
+    $query = mysqli_query($con, $sql_ncc);
+    while ($row = mysqli_fetch_array($query)) {
+        $id_nhacungcap[] = $row["id_nhacungcap"];
+        $ten_ncc[] = $row["ten_ncc"];
+    }
+    $sql_sp = "SELECT id_sanpham, ten_sanpham, gia FROM `tbl_sanpham`";
+    $query = mysqli_query($con, $sql_sp);
+    while ($row = mysqli_fetch_array($query)) {
+        $id_sanpham[] = $row["id_sanpham"];
+        $ten_sanpham[] = $row["ten_sanpham"];
+        $sanpham[] = $row["id_sanpham"] . ". " . $row["ten_sanpham"];
+        $gia[] = $row["gia"];
+    }
+}
 
 if (isset($_GET['trangthai'])) {
     $trangthai = $_GET['trangthai'];
@@ -64,25 +63,6 @@ if (isset($_GET['trangthai'])) {
     }
 }
 ?>
-
-<!-- <script>
-    function thaydoi(trangthai) {
-        document.getElementById("tdtrangthai").style.display = "block";
-        document.getElementById("nthaydoi").style.display = "none";
-        if (trangthai == '1') {
-            document.getElementById("cxl").selected = true;
-        }
-        if (trangthai == '2') {
-            document.getElementById("tndh").selected = true;
-        }
-        if (trangthai == '3') {
-            document.getElementById("dgh").selected = true;
-        }
-        if (trangthai == '4') {
-            document.getElementById("dht").selected = true;
-        }
-    }
-</script> -->
 
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800">Quản lý nhập hàng</h1>
@@ -230,26 +210,29 @@ if (isset($_GET['trangthai'])) {
         </a>
     <?php } ?>
     <?php if ($action == 'thempn') { ?>
-        <div class="row" style="margin-top: 10px;">
-            <form class="form" action="xuli-nhaphang.php" method="POST" id="tdtrangthai">
-                <input type="hidden" value="<?php echo $phieunhap['id_phieunhap'] ?>" name="idphieunhap" id="idphieunhap">
-                <div class="form-group row">
-                    <div class="col">
-
-                        <select class="form-control" name="nhanhang" id="nhanhang">
-                            <option value="Chưa nhận hàng" id="cnh" <?php if ($tt[0] == "Chưa nhận hàng") echo "selected" ?>>Chưa nhận hàng</option>
-                            <option value="Đã nhận hàng" id="dnh" <?php if ($tt[0] == "Đã nhận hàng") echo "selected" ?>>Đã nhận hàng</option>
-                        </select>
-                    </div>
-                    <div class="col">
-
-                        <select class="form-control" name="thanhtoan" id="thanhtoan">
-                            <option value="Chưa thanh toán" id="ctt" <?php if ($tt[1] == "Chưa thanh toán") echo "selected" ?>>Chưa thanh toán</option>
-                            <option value="Đã thanh toán" id="dtt" <?php if ($tt[1] == "Đã thanh toán") echo "selected" ?>>Đã thanh toán</option>
-                        </select>
-                    </div>
+        <div class="row" style="display: flex;width: 600px;padding: 30px;margin: auto;margin-top: 50px;border: solid 1px black;border-radius: 20px;">
+            <form class="form" action="xuli-nhaphang.php" method="GET" id="themphieunhap">
+                <legend> Form nhập hàng</legend>
+                <input type="hidden" name="themphieunhap" id="themphieunhap">
+                <input type="hidden" value="<?php echo $new_id ?>" name="idphieunhapmoi" id="idphieunhapmoi">
+                <div class="form-group">
+                    <label for="sanpham" class="form-label">Sản phẩm</label>
+                    <input class="form-control" list="listsanpham" name="idsanpham" id="sanpham" placeholder="Tìm kiếm sản phẩm">
+                    <datalist id="listsanpham">
+                    <?php for ($i = 0; $i < sizeof($id_sanpham); $i++) {
+                            echo '<option value="' . $id_sanpham[$i] . '">' . $sanpham[$i] . '</option>';
+                        } ?>    
+                    </datalist>
                 </div>
-                <button class="form-group btn btn-success" type="submit">Xác nhận thay đổi</button>
+                <div class="form-group">
+                    <label class="form-label" for="Nhacuncap">Nhà cung cấp</label>
+                    <select class="form-control" aria-label="Nhacungcap">
+                        <?php for ($i = 0; $i < sizeof($id_nhacungcap); $i++) {
+                            echo '<option value="' . $id_nhacungcap[$i] . '">' . $ten_ncc[$i] . '</option>';
+                        } ?>
+                    </select>
+                </div>
+                <button class="form-group btn btn-success" type="submit">Thêm</button>
             </form>
         </div>
         <button class="btn btn-primary" type="submit" onclick="window.history.back(-1)">Trở lại</button>
