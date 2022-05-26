@@ -70,7 +70,7 @@ if (isset($_GET['trangthai'])) {
                             <span class="icon text-white-50">
                                 <i class="fas fa-flag"></i>
                             </span>
-                            <span class="text">Thêm mới danh mục mới</span>
+                            <span class="text">Thêm danh mục mới</span>
                         </a>
                 <?php }
                 } ?>

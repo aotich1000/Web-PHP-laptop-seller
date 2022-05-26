@@ -31,25 +31,6 @@ if ($action == 'show') {
     $sql = $sql . " LIMIT $start,$limit_pg";
     $query = mysqli_query($con, $sql);
 }
-if ($action == 'thempn') {
-    $sql_id = "SELECT id_phieunhap FROM tbl_phieunhap ORDER BY id_phieunhap DESC LIMIT 1";
-    $query = mysqli_query($con, $sql_id);
-    $new_id = mysqli_fetch_assoc($query)["id_phieunhap"] + 1;
-    $sql_ncc = "SELECT * FROM tbl_nhacungcap";
-    $query = mysqli_query($con, $sql_ncc);
-    while ($row = mysqli_fetch_array($query)) {
-        $id_nhacungcap[] = $row["id_nhacungcap"];
-        $ten_ncc[] = $row["ten_ncc"];
-    }
-    $sql_sp = "SELECT id_sanpham, ten_sanpham, gia FROM `tbl_sanpham`";
-    $query = mysqli_query($con, $sql_sp);
-    while ($row = mysqli_fetch_array($query)) {
-        $id_sanpham[] = $row["id_sanpham"];
-        $ten_sanpham[] = $row["ten_sanpham"];
-        $sanpham[] = $row["id_sanpham"] . ". " . $row["ten_sanpham"];
-        $gia[] = $row["gia"];
-    }
-}
 
 if (isset($_GET['trangthai'])) {
     $trangthai = $_GET['trangthai'];
@@ -65,6 +46,7 @@ if (isset($_GET['trangthai'])) {
 ?>
 
 <div class="container-fluid">
+
     <h1 class="h3 mb-2 text-gray-800">Quản lý nhập hàng</h1>
     <?php
     if ($action == 'xuli') {
@@ -209,30 +191,14 @@ if (isset($_GET['trangthai'])) {
             <span class="text">Thêm phiếu nhập mới</span>
         </a>
     <?php } ?>
-    <?php if ($action == 'thempn') { ?>
-        <div class="row" style="display: flex;width: 600px;padding: 30px;margin: auto;margin-top: 50px;border: solid 1px black;border-radius: 20px;">
-            <form class="form" action="xuli-nhaphang.php" method="GET" id="themphieunhap">
-                <legend> Form nhập hàng</legend>
-                <input type="hidden" name="themphieunhap" id="themphieunhap">
-                <input type="hidden" value="<?php echo $new_id ?>" name="idphieunhapmoi" id="idphieunhapmoi">
-                <div class="form-group">
-                    <label for="sanpham" class="form-label">Sản phẩm</label>
-                    <input class="form-control" list="listsanpham" name="idsanpham" id="sanpham" placeholder="Tìm kiếm sản phẩm">
-                    <datalist id="listsanpham">
-                    <?php for ($i = 0; $i < sizeof($id_sanpham); $i++) {
-                            echo '<option value="' . $sanpham[$i] . '">';
-                        } ?>    
-                    </datalist>
+    <?php if ($action == 'thempn') {?>
+        <div class="row" style="margin-top: 10px;">
+            <form class="form" action="xuli-nhaphang.php" method="POST" id="thempn">
+                <input type="hidden" value="<?php echo $phieunhap['id_phieunhap'] ?>" name="idphieunhap" id="idphieunhap">
+                <div class="form-group row">
+                    
                 </div>
-                <div class="form-group">
-                    <label class="form-label" for="Nhacuncap">Nhà cung cấp</label>
-                    <select class="form-control" name="id_ncc" aria-label="Nhacungcap">
-                        <?php for ($i = 0; $i < sizeof($id_nhacungcap); $i++) {
-                            echo '<option value="' . $id_nhacungcap[$i] . '">' . $ten_ncc[$i] . '</option>';
-                        } ?>
-                    </select>
-                </div>
-                <button class="form-group btn btn-success" type="submit">Thêm</button>
+                <button class="form-group btn btn-success" type="submit">Xác nhận thay đổi</button>
             </form>
         </div>
         <button class="btn btn-primary" type="submit" onclick="window.history.back(-1)">Trở lại</button>

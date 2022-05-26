@@ -52,6 +52,12 @@ $quyenquanlyhoadon = explode(',', $data1['qlhd']);
         <?php
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
+        } else {
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+            }
+        }
+        if (isset($id)) {
             switch ($id) {
                 case 'quanlyadmin':
                     include "include/ql_admin.php";
@@ -74,37 +80,15 @@ $quyenquanlyhoadon = explode(',', $data1['qlhd']);
                 case 'thongke':
                     include "include/thongke.php";
                     break;
-                default:
-                    include "include/ql-sanpham.php";
-                    break;
-            }
-        } else 
-        if (isset($_POST['id'])) {
-            $id = $_POST['id'];
-            switch ($id) {
-                case 'quanlyadmin':
-                    include "include/ql_admin.php";
-                    break;
-                case 'quanlyuser':
-                    include "include/ql-taikhoan-kh.php";
-                    break;
-                case 'quanlysanpham':
-                    include "include/ql-sanpham.php";
-                    break;
-                case 'quanlyhoadon':
-                    include "include/ql-hoadon.php";
-                    break;
-                case 'thongke':
-                    include "include/thongke.php";
+                case 'quanlynhaphang':
+                    include "include/ql_nhaphang.php";
                     break;
                 default:
                     include "include/ql-sanpham.php";
                     break;
             }
-        } else include "include/ql-sanpham.php"
+        } else include "include/ql-sanpham.php";
         ?>
-
-
     </div>
     <!-- End of Page Wrapper -->
 
@@ -113,24 +97,7 @@ $quyenquanlyhoadon = explode(',', $data1['qlhd']);
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
