@@ -101,7 +101,7 @@ if (isset($_GET['trangthai'])) {
     if ($trangthai == 'thempnthatbai') {
     ?>
         <script>
-            alert("Thêm thất bại");
+            //alert("Thêm thất bại");
             location.href = "index.php?id=quanlynhaphang&action=thempn";
         </script>
     <?php
@@ -109,7 +109,7 @@ if (isset($_GET['trangthai'])) {
     if ($trangthai == 'thempnthanhcong') {
     ?>
         <script>
-            alert("Thao tác thành công");
+            //alert("Thao tác thành công");
             location.href = "index.php?id=quanlynhaphang&action=thempn";
         </script>
 <?php
