@@ -220,13 +220,13 @@ if (isset($_GET['trangthai'])) {
                     <input class="form-control" list="listsanpham" name="idsanpham" id="sanpham" placeholder="Tìm kiếm sản phẩm">
                     <datalist id="listsanpham">
                     <?php for ($i = 0; $i < sizeof($id_sanpham); $i++) {
-                            echo '<option value="' . $id_sanpham[$i] . '">' . $sanpham[$i] . '</option>';
+                            echo '<option value="' . $sanpham[$i] . '">';
                         } ?>    
                     </datalist>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="Nhacuncap">Nhà cung cấp</label>
-                    <select class="form-control" aria-label="Nhacungcap">
+                    <select class="form-control" name="id_ncc" aria-label="Nhacungcap">
                         <?php for ($i = 0; $i < sizeof($id_nhacungcap); $i++) {
                             echo '<option value="' . $id_nhacungcap[$i] . '">' . $ten_ncc[$i] . '</option>';
                         } ?>
