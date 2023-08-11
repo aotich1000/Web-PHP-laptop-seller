@@ -1,5 +1,5 @@
 # Web-PHP-laptop-seller
-Here is my own website create by php. JUST PHP.
+Here is my own website created by php. JUST PHP.
 
 4 step to install website for test in local host. 
 STEP 1: INSTALL XAMPP. 
